@@ -32,6 +32,7 @@ public abstract class Inventario {
 	
 	// Método para adicionar um produto, de determinado código
 	public void adicionarProduto(int cod, Produto prod) {
+		// TODO: Caso já tiver o código, adicionar a quantidade
 		produtos.put(cod, prod);
 	}
 	
