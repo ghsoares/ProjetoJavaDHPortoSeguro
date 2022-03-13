@@ -8,7 +8,7 @@ public abstract class Inventario {
 	private Map<Integer, Produto> produtos;
 
 	// Construtor do inventário
-	public Inventario() {		
+	public Inventario() {
 		// Cria uma instância de map de produtos, mapeado pelo código int
 		produtos = new HashMap<Integer, Produto>();
 	}
@@ -18,30 +18,39 @@ public abstract class Inventario {
 	public int getQuantidadeElementos() {
 		return produtos.size();
 	}
-	
+
 	// Método para pegar o código de um produto, a partir da posição
 	// no Map
 	public int getCodigo(int idx) {
-		return (int)produtos.keySet().toArray()[idx];
+		return (int) produtos.keySet().toArray()[idx];
 	}
 
 	// Método para pegar um produto individual pelo código
 	public Produto getProduto(int cod) {
 		return produtos.get(cod);
 	}
-	
+
 	// Método para adicionar um produto, de determinado código
 	public void adicionarProduto(int cod, Produto prod) {
-		// TODO: Caso já tiver o código, adicionar a quantidade
-		produtos.put(cod, prod);
+		// Tentar pegar do map
+		Produto outroProduto = produtos.getOrDefault(cod, null);
+
+		// Caso existir, só adiciono a quantidade
+		if (outroProduto != null) {
+			outroProduto.adicionarQuantidade(prod.getQuantidade());
+		}
+		// Senão adiciono ao map
+		else {
+			produtos.put(cod, prod);
+		}
 	}
-	
+
 	// Método que tenta reduzir a quantidade de um produto,
 	// caso conseguir reduzir, return true
 	public boolean tentarSubtrairQuantidade(int cod, int qtd) {
 		// Pega o produto usando o método da classe Inventario
 		Produto produto = getProduto(cod);
-		
+
 		// Checa se a quantidade no inventário é maior ou igual
 		// á quantidade passada no método
 		if (produto.getQuantidade() >= qtd) {

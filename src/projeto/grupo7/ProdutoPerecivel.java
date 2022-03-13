@@ -27,9 +27,8 @@ public class ProdutoPerecivel implements Produto {
 	}
 
 	@Override
-	public int adicionarQuantidade(int qtd) {
+	public void adicionarQuantidade(int qtd) {
 		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

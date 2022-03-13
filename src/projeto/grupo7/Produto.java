@@ -6,5 +6,5 @@ public interface Produto {
 	float 	getPreco();
 	float 	getPorcentagemDoacao();
 	
-	int		adicionarQuantidade(int qtd);
+	void	adicionarQuantidade(int qtd);
 }
