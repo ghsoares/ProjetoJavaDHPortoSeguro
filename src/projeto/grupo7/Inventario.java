@@ -1,16 +1,16 @@
 package projeto.grupo7;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class Inventario {
-	// Array list de produtos do inventário
+	// Map de produtos do inventário
 	private Map<Integer, Produto> produtos;
 
 	// Construtor do inventário
 	public Inventario() {
 		// Cria uma instância de map de produtos, mapeado pelo código int
-		produtos = new HashMap<Integer, Produto>();
+		produtos = new LinkedHashMap<Integer, Produto>();
 	}
 
 	// Método para pegar a quantidade de elementos de produtos
@@ -27,7 +27,7 @@ public abstract class Inventario {
 
 	// Método para pegar um produto individual pelo código
 	public Produto getProduto(int cod) {
-		return produtos.get(cod);
+		return produtos.getOrDefault(cod, null);
 	}
 	
 	// Método para adicionar um produto, de determinado código
@@ -46,8 +46,8 @@ public abstract class Inventario {
 	}
 
 	// Método que tenta reduzir a quantidade de um produto,
-	// caso conseguir reduzir, return true
-	public boolean tentarSubtrairQuantidade(int cod, int qtd) {
+	// caso conseguir reduzir, return um novo objeto
+	public Produto tentarSubtrairQuantidade(int cod, int qtd) {
 		// Pega o produto usando o método da classe Inventario
 		Produto produto = getProduto(cod);
 
@@ -56,12 +56,16 @@ public abstract class Inventario {
 		if (produto.getQuantidade() >= qtd) {
 			// Reduz a quantidade do produto
 			produto.adicionarQuantidade(-qtd);
-			return true;
+			
+			// Criar um novo objeto do tipo produto
+			Produto outroProduto = new Produto(produto.getNome(), qtd, produto.getPreco(), produto.getPorcentagemDoacao());
+			
+			// Retorna esse novo produto
+			return outroProduto;
 		} else {
-			return false;
+			return null;
 		}
 	}
-
 }
 
 
