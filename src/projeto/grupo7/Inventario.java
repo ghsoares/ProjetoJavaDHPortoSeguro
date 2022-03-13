@@ -29,7 +29,7 @@ public abstract class Inventario {
 	public Produto getProduto(int cod) {
 		return produtos.get(cod);
 	}
-
+	
 	// Método para adicionar um produto, de determinado código
 	public void adicionarProduto(int cod, Produto prod) {
 		// Tentar pegar do map
@@ -61,4 +61,9 @@ public abstract class Inventario {
 			return false;
 		}
 	}
+
 }
+
+
+
+
