@@ -17,7 +17,7 @@ public class Carrinho extends Inventario implements Mostravel {
 				
 		// Mostra o cabeçalho do relatário
 		System.out.print("\n" + Utilitario.padRightSpaces("Código", 8) + "|");
-		System.out.print(Utilitario.padRightSpaces("Nome", 16) + "|");
+		System.out.print(Utilitario.padRightSpaces("Nome", 20) + "|");
 		System.out.print(Utilitario.padRightSpaces("Qtd", 6) + "|");
 		System.out.print(Utilitario.padRightSpaces("Preço", 16) + "|");
 		System.out.print(Utilitario.padRightSpaces("% de doação", 16) + "|");
@@ -36,7 +36,7 @@ public class Carrinho extends Inventario implements Mostravel {
 			
 			// Mostra as propriedades do produto
 			System.out.print(Utilitario.padRightSpaces("" + codigo, 8) + "|");
-			System.out.print(Utilitario.padRightSpaces(produto.getNome(), 16) + "|");
+			System.out.print(Utilitario.padRightSpaces(produto.getNome(), 20) + "|");
 			System.out.print(Utilitario.padRightSpaces("" + produto.getQuantidade(), 6) + "|");
 			System.out.print(Utilitario.padRightSpaces(String.format("R$ %.2f", preco), 16) + "|");
 			System.out.print(Utilitario.padRightSpaces(String.format("%.2f", produto.getPorcentagemDoacao() * 100) + "%", 16) + "|");
