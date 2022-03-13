@@ -6,6 +6,14 @@ public class Produto {
 	private float preco;
 	private float porcentagemDoacao;
 	
+	// Cria um produto usando o nome, quantidade, preço e porcentagem de doação
+	public Produto(String nome, int quantidade, float preco, float porcentagemDoacao) {
+		this.nome = nome;
+		this.quantidade = quantidade;
+		this.preco = preco;
+		this.porcentagemDoacao = porcentagemDoacao;
+	}
+
 	// Método que adiciona quantidade do produto
 	public void adicionarQuantidade(int qtd) {
 		this.quantidade += qtd;
