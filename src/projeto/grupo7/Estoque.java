@@ -16,7 +16,7 @@ public class Estoque extends Inventario implements Mostravel {
 
 		// Mostra o cabeçalho do relatário
 		System.out.print("\n" + Utilitario.padRightSpaces("Código", 8) + "|");
-		System.out.print(Utilitario.padRightSpaces("Nome", 16) + "|");
+		System.out.print(Utilitario.padRightSpaces("Nome", 20) + "|");
 		System.out.print(Utilitario.padRightSpaces("Preço", 16) + "|");
 		System.out.print(Utilitario.padRightSpaces("Qtd no estoque", 16) + "|");
 		System.out.println(Utilitario.padRightSpaces("% de doação", 16));
@@ -30,7 +30,7 @@ public class Estoque extends Inventario implements Mostravel {
 
 			// Mostra as propriedades do produto
 			System.out.print(Utilitario.padRightSpaces("" + codigo, 8) + "|");
-			System.out.print(Utilitario.padRightSpaces(produto.getNome(), 16) + "|");
+			System.out.print(Utilitario.padRightSpaces(produto.getNome(), 20) + "|");
 			System.out.print(Utilitario.padRightSpaces(String.format("R$ %.2f", produto.getPreco()), 16) + "|");
 			System.out.print(Utilitario.padRightSpaces("" + produto.getQuantidade(), 16) + "|");
 			System.out.println(
