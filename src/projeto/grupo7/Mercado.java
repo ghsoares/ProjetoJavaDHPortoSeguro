@@ -160,8 +160,53 @@ public class Mercado {
 		}
 	}
 
-	
-	
+	// M�todo para checar o carrinho
+	public static void checarCarrinho() {
+		System.out.println("\nEsses s�o os produtos no carrinho:");
+
+		// Mostra o estoque
+		carrinho.mostrar();
+
+		// Valores da compra
+		float valorTotal = 0;
+		float valorDoacaoTotal = 0;
+
+		// Para cada produto
+		for (int i = 0; i < carrinho.getQuantidadeElementos(); i++) {
+			// Pega o c�digo e o produto
+			int codigo = carrinho.getCodigo(i);
+			Produto produto = carrinho.getProduto(codigo);
+
+			// Calcula o valor do produto
+			float valor = produto.getPreco() * produto.getQuantidade();
+
+			// Calcula o valor de doa��o do produto
+			float valorDoacao = valor * produto.getPorcentagemDoacao();
+
+			// Soma os valores
+			valorTotal += valor;
+			valorDoacaoTotal += valorDoacao;
+		}
+
+		// Mostra o resumo da compra
+		System.out.println("\nResumo da compra:");
+
+		System.out.printf("\nValor total:        R$ %2.2f\n", valorTotal);
+		System.out.printf("Valor de doa��o:    R$ %2.2f\n", valorDoacaoTotal);
+
+		// Mostra o menu
+		System.out.println("\n1 - Finalizar compra");
+		System.out.println("2 - Excluir um item");
+		System.out.println("3 - Voltar");
+
+		// Pega a op��o do menu
+		int op = menu();
+		
+		if (op == 3) {
+			return;
+		}
+	}
+
 	// M�todo principal de execu��o do programa
 	public static void main(String[] args) {
 		// Cria��o do estoque e do carrinho
@@ -187,13 +232,25 @@ public class Mercado {
 		int op;
 
 		do {
-			// Mostrar o menu e pegar a op��o
+			// Mostrar o menu 
+			System.out.println("\nInsira uma op��o:");
+
+			System.out.println("\n1 - Adicionar um produto ao carrinho.");
+			System.out.println("2 - Checar o carrinho.");
+			System.out.println("3 - Sair do programa.");
+			
+			// Pega a op��o
 			op = menu();
 
 			switch (op) {
 			case 1: {
 				// Adicionar um produto ao carrinho
 				adicionarAoCarrinho();
+				break;
+			}
+			case 2: {
+				// Checa o carrinho
+				checarCarrinho();
 				break;
 			}
 			}
@@ -203,8 +260,3 @@ public class Mercado {
 		System.out.println("\nAt� mais!");
 	}
 }
-
-
-
-
-
