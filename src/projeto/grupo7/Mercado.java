@@ -4,66 +4,74 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Mercado {
-	// Scanner do input do usuário
+	// Scanner do input do usuï¿½rio
 	private static Scanner leia;
 
-	// Variáveis do estoque e do carrinho
+	// Variï¿½veis do estoque e do carrinho
 	private static Estoque estoque;
 	private static Carrinho carrinho;
 
-	// Método para mostrar e pegar a opção do menu
+	// Mï¿½todo para mostrar e pegar a opï¿½ï¿½o do menu
 	public static int menu() {
-		// Mostra o menu
-		System.out.println("\nInsira uma opção:");
-
-		System.out.println("\n1 - Adicionar um produto ao carrinho.");
-		System.out.println("2 - Checar o carrinho.");
-		System.out.println("3 - Sair do programa.");
-
-		// Ler a opção
-		int op = leia.nextInt();
-
-		// Continua lendo a opção caso for inválida
-		while (op < 1 || op > 3) {
-			System.out.println("\nOpção inválida! Tenta de novo:");
-			op = leia.nextInt();
-		}
-
-		// Retorna a opção
-		return op;
-	}
-
-	// Método para pegar o input código de produto do usuário
-	public static int pegarCodigoProduto() {
-		// Pega o input código
-		int cod;
+		// Pega o input opï¿½ï¿½o do menu
+		int op;
 		do {
-			// Tenta pegar o código do input
+			// Tenta pegar a opï¿½ï¿½o do menu
 			try {
-				cod = leia.nextInt();
+				op = leia.nextInt();
 
-				// Caso for menor que zero, continua o loop
-				if (cod < 0) {
-					System.out.println("\nCódigo inválido, por favor, insira um número maior que zero.");
+				// Caso for menor que um ou maior que trï¿½s, continua o loop
+				if (op < 1 || op > 3) {
+					System.out.println("\nOpï¿½ï¿½o invï¿½lida, por favor, insira uma opï¿½ï¿½o entre 1 e 3.");
 					continue;
 				}
 
-				// Caso for válido, sai do loop
+				// Caso for vï¿½lido, sai do loop
 				break;
-				// Erro de digitação
+				// Erro de digitaï¿½ï¿½o
 			} catch (InputMismatchException e) {
-				System.out.println("\nCódigo inválido, por favor, insira um número inteiro.");
+				System.out.println("\nOpï¿½ï¿½o invï¿½lida, por favor, insira um nï¿½mero inteiro.");
 
 				// Limpar o cache do Scanner
 				leia.nextLine();
 			}
 		} while (true);
 
-		// Retorna o código
+		// Retorna a opï¿½ï¿½o
+		return op;
+	}
+
+	// Mï¿½todo para pegar o input cï¿½digo de produto do usuï¿½rio
+	public static int pegarCodigoProduto() {
+		// Pega o input cï¿½digo
+		int cod;
+		do {
+			// Tenta pegar o cï¿½digo do input
+			try {
+				cod = leia.nextInt();
+
+				// Caso for menor que zero, continua o loop
+				if (cod < 0) {
+					System.out.println("\nCï¿½digo invï¿½lido, por favor, insira um nï¿½mero maior que zero.");
+					continue;
+				}
+
+				// Caso for vï¿½lido, sai do loop
+				break;
+				// Erro de digitaï¿½ï¿½o
+			} catch (InputMismatchException e) {
+				System.out.println("\nCï¿½digo invï¿½lido, por favor, insira um nï¿½mero inteiro.");
+
+				// Limpar o cache do Scanner
+				leia.nextLine();
+			}
+		} while (true);
+
+		// Retorna o cï¿½digo
 		return cod;
 	}
 
-	// Método para pegar o input quantidade de produto do usuário
+	// Mï¿½todo para pegar o input quantidade de produto do usuï¿½rio
 	public static int pegarQuantidadeProduto() {
 		// Pega o input quantidade
 		int qtd;
@@ -74,15 +82,15 @@ public class Mercado {
 
 				// Caso for menor que zero, continua o loop
 				if (qtd < 0) {
-					System.out.println("\nQuantidade inválida, por favor, insira um número maior que zero.");
+					System.out.println("\nQuantidade invï¿½lida, por favor, insira um nï¿½mero maior que zero.");
 					continue;
 				}
 
-				// Caso for válido, sai do loop
+				// Caso for vï¿½lido, sai do loop
 				break;
-				// Erro de digitação
+				// Erro de digitaï¿½ï¿½o
 			} catch (InputMismatchException e) {
-				System.out.println("\nQuantidade inválida, por favor, insira um número inteiro.");
+				System.out.println("\nQuantidade invï¿½lida, por favor, insira um nï¿½mero inteiro.");
 
 				// Limpar o cache do Scanner
 				leia.nextLine();
@@ -93,45 +101,45 @@ public class Mercado {
 		return qtd;
 	}
 
-	// Método para adicionar um produto ao carrinho
+	// Mï¿½todo para adicionar um produto ao carrinho
 	public static void adicionarAoCarrinho() {
-		System.out.println("\nEsses são os produtos disponíveis:");
+		System.out.println("\nEsses sï¿½o os produtos disponï¿½veis:");
 
 		// Mostra o estoque
 		estoque.mostrar();
 
-		System.out.println("\nInsira o código do produto que deseja (0 para retornar):");
+		System.out.println("\nInsira o cï¿½digo do produto que deseja (0 para retornar):");
 
-		// Pega o código de produto
+		// Pega o cï¿½digo de produto
 		int cod = pegarCodigoProduto();
 
-		// Retorna para o menu, caso o código for zero
+		// Retorna para o menu, caso o cï¿½digo for zero
 		if (cod == 0) {
 			return;
 		}
 
-		// Pega o produto pelo código, ou nulo caso não exista
+		// Pega o produto pelo cï¿½digo, ou nulo caso nï¿½o exista
 		Produto prod = estoque.getProduto(cod);
 
-		// Enquanto o produto for nulo, continua pegando o código do usuário
+		// Enquanto o produto for nulo, continua pegando o cï¿½digo do usuï¿½rio
 		while (prod == null) {
-			System.out.println("\nNão existe um produto com esse código, tente novamente");
+			System.out.println("\nNï¿½o existe um produto com esse cï¿½digo, tente novamente");
 
-			// Pega o input código
+			// Pega o input cï¿½digo
 			cod = pegarCodigoProduto();
 
-			// Retorna para o menu, caso o código for zero
+			// Retorna para o menu, caso o cï¿½digo for zero
 			if (cod == 0) {
 				return;
 			}
 
-			// Pega o produto pelo código, ou nulo caso não exista
+			// Pega o produto pelo cï¿½digo, ou nulo caso nï¿½o exista
 			prod = estoque.getProduto(cod);
 		}
 
 		System.out.printf("\nInsira a quantidade do produto [%s] que deseja (0 para retornar):\n", prod.getNome());
 
-		// Pega a quantidade do input do usuário
+		// Pega a quantidade do input do usuï¿½rio
 		int qtd = pegarQuantidadeProduto();
 
 		// Retorna para o menu, caso a quantidade for zero
@@ -154,9 +162,9 @@ public class Mercado {
 
 	
 	
-	// Método principal de execução do programa
+	// Mï¿½todo principal de execuï¿½ï¿½o do programa
 	public static void main(String[] args) {
-		// Criação do estoque e do carrinho
+		// Criaï¿½ï¿½o do estoque e do carrinho
 		estoque = new Estoque();
 		carrinho = new Carrinho();
 
@@ -165,13 +173,13 @@ public class Mercado {
 		estoque.adicionarProduto(64, new Produto("Arroz(5KG)", 400, 26.60f, 0.15f));
 		estoque.adicionarProduto(80, new Produto("Creme dental(UND)", 500, 7.40f, 0.10f));
 		estoque.adicionarProduto(76, new Produto("Esponja(10 UND)", 300, 15.50f, 0.09f));
-		estoque.adicionarProduto(47, new Produto("Feijão(1KG)", 300, 7.40f, 0.085f));
+		estoque.adicionarProduto(47, new Produto("Feijï¿½o(1KG)", 300, 7.40f, 0.085f));
 		estoque.adicionarProduto(100, new Produto("Ki-suco", 0, 1f, 0.5f));
 		estoque.adicionarProduto(79, new Produto("Sabonete(UND)", 250, 3.50f, 0.075f));
 		estoque.adicionarProduto(97, new Produto("Suco de caixa(1L)", 4, 6f, 0.12f));
 		estoque.adicionarProduto(16, new Produto("Tomate(1KG)", 300, 6.75f, 0.05f));
 
-		// Criação de um objeto scanner para ler a entrada do usuário
+		// Criaï¿½ï¿½o de um objeto scanner para ler a entrada do usuï¿½rio
 		leia = new Scanner(System.in);
 
 		System.out.println("\nSeja bem vindo ao mercado!");
@@ -179,7 +187,7 @@ public class Mercado {
 		int op;
 
 		do {
-			// Mostrar o menu e pegar a opção
+			// Mostrar o menu e pegar a opï¿½ï¿½o
 			op = menu();
 
 			switch (op) {
@@ -192,7 +200,7 @@ public class Mercado {
 
 		} while (op != 3);
 
-		System.out.println("\nAté mais!");
+		System.out.println("\nAtï¿½ mais!");
 	}
 }
 
