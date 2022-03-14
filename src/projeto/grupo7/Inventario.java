@@ -44,6 +44,11 @@ public abstract class Inventario {
 			produtos.put(cod, prod);
 		}
 	}
+	
+	// Método para tirar um produto do inventário
+	public Produto tirarProduto(int cod) {
+		return produtos.remove(cod);
+	}
 
 	// Método que tenta reduzir a quantidade de um produto,
 	// caso conseguir reduzir, return um novo objeto
