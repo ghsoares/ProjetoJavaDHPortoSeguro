@@ -4,60 +4,65 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class Inventario {
-	// Map de produtos do inventï¿½rio
+	// Map de produtos do inventário
 	protected Map<Integer, Produto> produtos;
 
-	// Construtor do inventï¿½rio
+	// Construtor do inventário
 	public Inventario() {
-		// Cria uma instï¿½ncia de map de produtos, mapeado pelo cï¿½digo int
+		// Cria uma instância de map de produtos, mapeado pelo código int
 		produtos = new LinkedHashMap<Integer, Produto>();
 	}
 
-	// Mï¿½todo para pegar a quantidade de elementos de produtos
+	// Método para pegar a quantidade de elementos de produtos
 	// no map
 	public int getQuantidadeElementos() {
 		return produtos.size();
 	}
 
-	// Mï¿½todo para pegar o cï¿½digo de um produto, a partir da posiï¿½ï¿½o
+	// Método para pegar o código de um produto, a partir da posição
 	// no Map
 	public int getCodigo(int idx) {
 		return (int) produtos.keySet().toArray()[idx];
 	}
 
-	// Mï¿½todo para pegar um produto individual pelo cï¿½digo
+	// Método para pegar um produto individual pelo código
 	public Produto getProduto(int cod) {
 		return produtos.getOrDefault(cod, null);
 	}
 
-	// Mï¿½todo para adicionar um produto, de determinado cï¿½digo
+	// Método para adicionar um produto, de determinado código
 	public void adicionarProduto(int cod, Produto prod) {
 		// Tentar pegar do map
 		Produto outroProduto = produtos.getOrDefault(cod, null);
 
-		// Caso existir, sï¿½ adiciono a quantidade
+		// Caso existir, só adiciono a quantidade
 		if (outroProduto != null) {
 			outroProduto.adicionarQuantidade(prod.getQuantidade());
 		}
-		// Senï¿½o adiciono ao map
+		// Senão adiciono ao map
 		else {
 			produtos.put(cod, prod);
 		}
 	}
 
-	// Mï¿½todo para tirar um produto do inventï¿½rio
+	// Método para tirar um produto do inventário
 	public Produto tirarProduto(int cod) {
 		return produtos.remove(cod);
 	}
 
-	// Mï¿½todo que tenta reduzir a quantidade de um produto,
+	// Método para limpar o inventário
+	public void limpar() {
+		produtos.clear();
+	}
+
+	// Método que tenta reduzir a quantidade de um produto,
 	// caso conseguir reduzir, return um novo objeto
 	public Produto tentarSubtrairQuantidade(int cod, int qtd) {
-		// Pega o produto usando o mï¿½todo da classe Inventario
+		// Pega o produto usando o método da classe Inventario
 		Produto produto = getProduto(cod);
 
-		// Checa se a quantidade no inventï¿½rio ï¿½ maior ou igual
-		// ï¿½ quantidade passada no mï¿½todo
+		// Checa se a quantidade no inventário é maior ou igual
+		// á quantidade passada no método
 		if (produto.getQuantidade() >= qtd) {
 			// Reduz a quantidade do produto
 			produto.adicionarQuantidade(-qtd);
