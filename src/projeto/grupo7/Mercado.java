@@ -137,27 +137,27 @@ public class Mercado {
 			prod = estoque.getProduto(cod);
 		}
 
-		System.out.printf("\nInsira a quantidade do produto [%s] que deseja (0 para retornar):\n", prod.getNome());
-
-		// Pega a quantidade do input do usu�rio
-		int qtd = pegarQuantidadeProduto();
-
-		// Retorna para o menu, caso a quantidade for zero
-		if (qtd == 0) {
-			return;
-		}
-
-		Produto edson = estoque.tentarSubtrairQuantidade(cod, qtd);
-
 		// Tenta subtrair a quantidade do produto do estoque
-		if (edson != null) {
-			// Adiciono ao carrinho o produto com a quantidade requisitada
-			carrinho.adicionarProduto(cod, edson);
+		Produto edson;
+		
+		do {
+			// Pega a quantidade do input do usu�rio
+			System.out.printf("\nInsira a quantidade do produto [%s] que deseja (0 para retornar):\n", prod.getNome());
+			int qtd = pegarQuantidadeProduto();
 
-			System.out.printf("\nx%d unidades do produto [%s] foram adicionados ao carrinho!\n", qtd, edson.getNome());
-		} else {
-			System.out.println("\nQuantidade insuficiente no estoque, voltando ao menu");
-		}
+			// Retorna para o menu, caso a quantidade for zero
+			if (qtd == 0) {
+				return;
+			}
+			
+			edson = estoque.tentarSubtrairQuantidade(cod, qtd);
+			if (edson == null) {
+				System.out.println("\nQuantidade insuficiente no estoque, tente novamente.");
+			} else {
+				System.out.printf("\nx%d unidades do produto [%s] foram adicionados ao carrinho!\n", qtd, edson.getNome());
+				carrinho.adicionarProduto(cod, edson);
+			}
+		} while (edson == null);
 	}
 
 	// M�todo para checar o carrinho
