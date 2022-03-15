@@ -3,6 +3,23 @@ package projeto.grupo7;
 public class Carrinho extends Inventario implements Mostravel {
 
 	@Override
+	public Produto tentarSubtrairQuantidade(int cod, int qtd) {
+		Produto prod = super.tentarSubtrairQuantidade(cod, qtd);
+		
+		// Checa se conseguiu subtrair a quantidade do inventário
+		if (prod != null) {
+			// Checa se a quantidade desse preoduto no inventário for zero
+			if (this.produtos.get(cod).getQuantidade() == 0) {
+				// Remove a referência do produto do map
+				this.produtos.remove(cod);
+			}
+		}
+		
+		// Retorna o produto que foi subtraido
+		return prod;
+	}
+	
+	@Override
 	// Método para mostrar o relatório do carrinho
 	public void mostrar() {
 		// Alface
