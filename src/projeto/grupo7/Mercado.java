@@ -4,25 +4,25 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Mercado {
-	// Scanner do input do usuï¿½rio
+	// Scanner do input do usuário
 	private static Scanner leia;
 
-	// Variï¿½veis do estoque e do carrinho
+	// Variáveis do estoque e do carrinho
 	private static Estoque estoque;
 	private static Carrinho carrinho;
 
-	// Mï¿½todo para mostrar e pegar a opï¿½ï¿½o do menu
+	// Método para mostrar e pegar a opção do menu
 	public static int menu() {
-		// Pega o input opï¿½ï¿½o do menu
+		// Pega o input opção do menu
 		int op;
 		do {
-			// Tenta pegar a opï¿½ï¿½o do menu
+			// Tenta pegar a opção do menu
 			try {
 				op = leia.nextInt();
 
-				// Caso for menor que um ou maior que trï¿½s, continua o loop
+				// Caso for menor que um ou maior que três, continua o loop
 				if (op < 1 || op > 3) {
-					System.out.println("\nOpï¿½ï¿½o invï¿½lida, por favor, insira uma opï¿½ï¿½o entre 1 e 3.");
+					System.out.println("\nOpção invï¿½lida, por favor, insira uma opï¿½ï¿½o entre 1 e 3.");
 					continue;
 				}
 
@@ -164,7 +164,7 @@ public class Mercado {
 	public static void checarCarrinho() {
 		System.out.println("\nEsses sï¿½o os produtos no carrinho:");
 
-		// Mostra o estoque
+		// Mostra o carrinho
 		carrinho.mostrar();
 
 		// Valores da compra
@@ -201,9 +201,81 @@ public class Mercado {
 
 		// Pega a opï¿½ï¿½o do menu
 		int op = menu();
-		
+
 		if (op == 3) {
 			return;
+		}
+
+		switch (op) {
+		case 1: // Finalizar a compra
+		{
+			System.out.println("\nSua compra foi efetuada com sucesso!");
+			System.out.printf(
+					"\nR$ %2.2f foram doados para a ONG Amigos do Bem, que têm como objetivo principal a extinção da fome.\n",
+					valorDoacaoTotal);
+			System.out.println("Para mais informações, acesse o site: https://www.amigosdobem.org/ !!!");
+			System.out.println("Muito obrigado pela preferência!");
+
+			// Limpa o carrinho
+			carrinho.limpar();
+			
+			System.out.println("\nO carrinho está vazio, voltando ao menu principal.");
+			break;
+		}
+		case 2: // Excluir um item
+		{
+			System.out.println("\nInsira o código do produto para remover do carrinho (0 - Voltar):");
+			
+			// Pega o cï¿½digo de produto
+			int cod = pegarCodigoProduto();
+
+			// Retorna para o menu, caso o cï¿½digo for zero
+			if (cod == 0) {
+				return;
+			}
+
+			// Pega o produto pelo cï¿½digo, ou nulo caso nï¿½o exista
+			Produto prod = carrinho.getProduto(cod);
+
+			// Enquanto o produto for nulo, continua pegando o cï¿½digo do usuï¿½rio
+			while (prod == null) {
+				System.out.println("\nNão tem um produto com esse código no carrinho, tente novamente");
+
+				// Pega o input cï¿½digo
+				cod = pegarCodigoProduto();
+
+				// Retorna para o menu, caso o cï¿½digo for zero
+				if (cod == 0) {
+					return;
+				}
+
+				// Pega o produto pelo cï¿½digo, ou nulo caso nï¿½o exista
+				prod = carrinho.getProduto(cod);
+			}
+			
+			// Tenta subtrair a quantidade do produto do estoque
+			Produto edson;
+			
+			do {
+				// Pega a quantidade do input do usuï¿½rio
+				System.out.printf("\nInsira a quantidade do produto [%s] que deseja (0 para retornar):\n", prod.getNome());
+				int qtd = pegarQuantidadeProduto();
+
+				// Retorna para o menu, caso a quantidade for zero
+				if (qtd == 0) {
+					return;
+				}
+				
+				edson = carrinho.tentarSubtrairQuantidade(cod, qtd);
+				if (edson == null) {
+					System.out.println("\nQuantidade insuficiente no carrinho, tente novamente.");
+				} else {
+					System.out.printf("\nx%d unidades do produto [%s] foram removidos do carrinho!\n", qtd, edson.getNome());
+					estoque.adicionarProduto(cod, edson);
+				}
+			} while (edson == null);
+			break;
+		}
 		}
 	}
 
@@ -227,18 +299,18 @@ public class Mercado {
 		// Criaï¿½ï¿½o de um objeto scanner para ler a entrada do usuï¿½rio
 		leia = new Scanner(System.in);
 
-		System.out.println("\nSeja bem vindo ao mercado!");
+		System.out.println("\nSeja bem vindo ao mercado do Edson!");
 
 		int op;
 
 		do {
-			// Mostrar o menu 
+			// Mostrar o menu
 			System.out.println("\nInsira uma opï¿½ï¿½o:");
 
 			System.out.println("\n1 - Adicionar um produto ao carrinho.");
 			System.out.println("2 - Checar o carrinho.");
 			System.out.println("3 - Sair do programa.");
-			
+
 			// Pega a opï¿½ï¿½o
 			op = menu();
 
