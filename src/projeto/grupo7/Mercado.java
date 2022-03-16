@@ -191,7 +191,7 @@ public class Mercado {
 		// Mostra o resumo da compra
 		System.out.println("\nResumo da compra:");
 
-		System.out.printf("\nValor total:        R$ %2.2f\n", valorTotal);
+		System.out.printf("\nValor total:          R$ %2.2f\n", valorTotal);
 		System.out.printf("Valor de doação:      R$ %2.2f\n", valorDoacaoTotal);
 
 		// Mostra o menu
